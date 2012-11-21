@@ -1,0 +1,8 @@
+# binaries
+Release/*
+Test/*
+
+# eclipse settings
+.project
+.cproject
+.settings/
