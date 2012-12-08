@@ -22,8 +22,8 @@ public:
     virtual double getElement(int row, int col) const;
     virtual void setElement(int row, int col, double value);
 
-    virtual Vector* multiplyLeft(const Vector& vector);
-    virtual Vector* multiplyRight(const Vector& vector);
+    virtual Vector* multiplyLeft(const Vector& vector) const;
+    virtual Vector* multiplyRight(const Vector& vector) const;
 
     virtual void print(std::ostream& os) const;
 

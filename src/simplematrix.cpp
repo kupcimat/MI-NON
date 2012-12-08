@@ -50,7 +50,7 @@ void SimpleMatrix::setElement(int row, int col, double value) {
     m_data[row][col] = value;
 }
 
-Vector* SimpleMatrix::multiplyLeft(const Vector& vector) {
+Vector* SimpleMatrix::multiplyLeft(const Vector& vector) const {
     if (vector.size() != m_rows) {
         throw "Vector size does not match matrix rows";
     }
@@ -68,7 +68,7 @@ Vector* SimpleMatrix::multiplyLeft(const Vector& vector) {
     return result;
 }
 
-Vector* SimpleMatrix::multiplyRight(const Vector& vector) {
+Vector* SimpleMatrix::multiplyRight(const Vector& vector) const {
     if (vector.size() != m_cols) {
         throw "Vector size does not match columns";
     }
