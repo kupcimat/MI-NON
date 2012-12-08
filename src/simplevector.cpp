@@ -37,6 +37,32 @@ void SimpleVector::setElement(int index, double value) {
     m_data[index] = value;
 }
 
+void SimpleVector::plus(const Vector& other) {
+    if (other.size() != m_size) {
+        throw "Vectors must have the same size";
+    }
+
+    for (int i = 0; i < m_size; ++i) {
+        m_data[i] += other.getElement(i);
+    }
+}
+
+void SimpleVector::minus(const Vector& other) {
+    if (other.size() != m_size) {
+        throw "Vectors must have the same size";
+    }
+
+    for (int i = 0; i < m_size; ++i) {
+        m_data[i] -= other.getElement(i);
+    }
+}
+
+void SimpleVector::multiply(double value) {
+    for (int i = 0; i < m_size; ++i) {
+        m_data[i] *= value;
+    }
+}
+
 double SimpleVector::scalarProduct(const Vector& other) const {
     if (other.size() != m_size) {
         throw "Vectors must have the same size";

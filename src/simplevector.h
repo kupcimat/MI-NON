@@ -21,6 +21,9 @@ public:
     virtual double getElement(int index) const;
     virtual void setElement(int index, double value);
 
+    virtual void plus(const Vector& other);
+    virtual void minus(const Vector& other);
+    virtual void multiply(double value);
     virtual double scalarProduct(const Vector& other) const;
 
     virtual void print(std::ostream& os) const;

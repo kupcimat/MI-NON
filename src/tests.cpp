@@ -57,6 +57,38 @@ void testSimpleVectorSize() {
     BOOST_CHECK( v.size() == 5 );
 }
 
+void testSimpleVectorPlus() {
+    SimpleVector v1 = createSimpleVector(3);
+    SimpleVector v2 = createSimpleVector(3);
+
+    // [0,1,2] + [0,1,2] = [0,2,4]
+    v1.plus(v2);
+    BOOST_CHECK( v1.getElement(0) == 0 );
+    BOOST_CHECK( v1.getElement(1) == 2 );
+    BOOST_CHECK( v1.getElement(2) == 4 );
+}
+
+void testSimpleVectorMinus() {
+    SimpleVector v1 = createSimpleVector(3);
+    SimpleVector v2 = createSimpleVector(3);
+
+    // [0,1,2] - [0,1,2] = [0,0,0]
+    v1.minus(v2);
+    BOOST_CHECK( v1.getElement(0) == 0 );
+    BOOST_CHECK( v1.getElement(1) == 0 );
+    BOOST_CHECK( v1.getElement(2) == 0 );
+}
+
+void testSimpleVectorMultiply() {
+    SimpleVector v = createSimpleVector(3);
+
+    // [0,1,2] * 3 = [0,3,6]
+    v.multiply(3);
+    BOOST_CHECK( v.getElement(0) == 0 );
+    BOOST_CHECK( v.getElement(1) == 3 );
+    BOOST_CHECK( v.getElement(2) == 6 );
+}
+
 void testSimpleVectorScalarProduct() {
     SimpleVector v1 = createSimpleVector(3);
     SimpleVector v2 = createSimpleVector(3);
@@ -149,10 +181,13 @@ void testSimpleMatrixMultiplyInequalSize() {
     }
 }
 
-int test_main( int, char *[] ) {
+int test_main(int, char *[]) {
 
     testSimpleVectorDataAccess();
     testSimpleVectorSize();
+    testSimpleVectorPlus();
+    testSimpleVectorMinus();
+    testSimpleVectorMultiply();
     testSimpleVectorScalarProduct();
     testSimpleVectorScalarProductInequalSize();
 

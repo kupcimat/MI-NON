@@ -20,6 +20,9 @@ public:
     virtual double getElement(int index) const = 0;
     virtual void setElement(int index, double value) = 0;
 
+    virtual void plus(const Vector& other) = 0;
+    virtual void minus(const Vector& other) = 0;
+    virtual void multiply(double value) = 0;
     virtual double scalarProduct(const Vector& other) const = 0;
 
     virtual void print(std::ostream& os) const = 0;
