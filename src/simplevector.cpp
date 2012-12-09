@@ -76,6 +76,16 @@ double SimpleVector::scalarProduct(const Vector& other) const {
     return result;
 }
 
+Vector* SimpleVector::clone() const {
+    Vector* clone = new SimpleVector(m_size);
+
+    for (int i = 0; i < m_size; ++i) {
+        clone->setElement(i, m_data[i]);
+    }
+
+    return clone;
+}
+
 void SimpleVector::print(ostream& os) const {
     for (int i = 0; i < m_size; i++) {
         os << getElement(i) << " ";

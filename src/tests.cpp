@@ -108,6 +108,19 @@ void testSimpleVectorScalarProductInequalSize() {
     }
 }
 
+void testSimpleVectorClone() {
+    SimpleVector v = createSimpleVector(3);
+
+    Vector* c = v.clone();
+    v.setElement(0, 7);
+    v.setElement(1, 7);
+    v.setElement(2, 7);
+
+    BOOST_CHECK( c->getElement(0) == 0 );
+    BOOST_CHECK( c->getElement(1) == 1 );
+    BOOST_CHECK( c->getElement(2) == 2 );
+}
+
 void testSimpleMatrixDataAccess() {
     SimpleMatrix m = createSimpleMatrix(2, 2);
 
@@ -190,6 +203,7 @@ int test_main(int, char *[]) {
     testSimpleVectorMultiply();
     testSimpleVectorScalarProduct();
     testSimpleVectorScalarProductInequalSize();
+    testSimpleVectorClone();
 
     testSimpleMatrixDataAccess();
     testSimpleMatrixSize();

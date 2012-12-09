@@ -26,6 +26,7 @@ public:
     virtual void multiply(double value);
     virtual double scalarProduct(const Vector& other) const;
 
+    virtual Vector* clone() const;
     virtual void print(std::ostream& os) const;
 
 private:
