@@ -3,7 +3,7 @@
 // Author      : Matej Kupciha
 //============================================================================
 
-//#ifndef TEST
+#ifndef TEST
 
 #include <iostream>
 using namespace std;
@@ -20,18 +20,19 @@ int main(int argc, char* argv[]) {
 
     v->setElement(0, 2);
     v->setElement(1, 1);
-    v->print(cout);
-    cout << endl;
 
     m->setElement(0, 0, 2);
     m->setElement(0, 1, -1);
     m->setElement(1, 0, -1);
     m->setElement(1, 1, 1);
-    m->print(cout);
-    cout << endl;
 
     Algorithm* a = new GradientDescent();
-    Vector* res = a->solve(*m, *v, 0.001);
+    Vector* res = a->solve(*m, *v, 0.000001);
+
+    v->print(cout);
+    cout << endl;
+    m->print(cout);
+    cout << endl;
     res->print(cout);
     cout << endl;
 
@@ -44,4 +45,4 @@ int main(int argc, char* argv[]) {
     return 0;
 }
 
-//#endif /* TEST */
+#endif /* TEST */
