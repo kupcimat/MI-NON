@@ -8,7 +8,6 @@
 #ifndef SIMPLE_MATRIX_H_
 #define SIMPLE_MATRIX_H_
 
-#include <iostream>
 #include "matrix.h"
 
 class SimpleMatrix: public Matrix {

@@ -26,6 +26,7 @@ SimpleVector::SimpleVector(istream& is) {
         if (is.fail()) {
             throw "Wrong input data format";
         }
+        // TODO wont push last number when there is no new line at the end
         data.push_back(element);
     }
 
