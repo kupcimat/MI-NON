@@ -98,4 +98,3 @@ void SimpleMatrix::print(ostream& os) const {
 bool SimpleMatrix::indexOutOfBounds(int row, int col) const {
     return (row < 0 || col < 0 || row >= m_rows || col >= m_cols);
 }
-

@@ -25,7 +25,7 @@ Vector* GradientDescent::solve(const Matrix& A, const Vector& b, double epsilon)
         Vector* rOld = r->clone();
 
         // alfa = (r * r) / (r * A * r)
-        alfa = r->scalarProduct(*r) / (r->scalarProduct(*Ar));
+        alfa = r->scalarProduct(*r) / r->scalarProduct(*Ar);
         // x = x + alfa * r
         rOld->multiply(alfa);
         x->plus(*rOld);
