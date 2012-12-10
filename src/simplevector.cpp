@@ -6,11 +6,34 @@
  */
 
 #include "simplevector.h"
+#include <vector>
 using namespace std;
 
 SimpleVector::SimpleVector(int _size) {
     m_size = _size;
     m_data = new double[m_size];
+}
+
+SimpleVector::SimpleVector(istream& is) {
+    vector<double> data;
+    double element;
+
+    while (true) {
+        is >> element;
+        if (is.eof()) {
+            break;
+        }
+        if (is.fail()) {
+            throw "Error occurred while reading from input stream";
+        }
+        data.push_back(element);
+    }
+
+    m_size = data.size();
+    m_data = new double[m_size];
+    for (int i = 0; i < m_size; ++i) {
+        m_data[i] = data.at(i);
+    }
 }
 
 SimpleVector::~SimpleVector() {

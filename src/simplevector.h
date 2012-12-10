@@ -15,6 +15,7 @@ class SimpleVector: public Vector {
 
 public:
     SimpleVector(int _size);
+    SimpleVector(std::istream& is);
     virtual ~SimpleVector();
 
     virtual int size() const;
