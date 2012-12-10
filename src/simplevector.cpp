@@ -24,7 +24,7 @@ SimpleVector::SimpleVector(istream& is) {
             break;
         }
         if (is.fail()) {
-            throw "Error occurred while reading from input stream";
+            throw "Wrong input data format";
         }
         data.push_back(element);
     }

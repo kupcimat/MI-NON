@@ -15,6 +15,7 @@ class SimpleMatrix: public Matrix {
 
 public:
     SimpleMatrix(int _rows, int _cols);
+    SimpleMatrix(std::istream& is);
     virtual ~SimpleMatrix();
 
     virtual int rowSize() const;
@@ -32,6 +33,7 @@ private:
     int m_cols;
     double** m_data;
 
+    void initData();
     bool indexOutOfBounds(int row, int col) const;
 };
 

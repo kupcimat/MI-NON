@@ -12,10 +12,24 @@ using namespace std;
 SimpleMatrix::SimpleMatrix(int _rows, int _cols) {
     m_rows = _rows;
     m_cols = _cols;
+    initData();
+}
 
-    m_data = new double*[m_rows];
+SimpleMatrix::SimpleMatrix(istream& is) {
+    is >> m_rows;
+    m_cols = m_rows;
+    if (is.fail()) {
+        throw "Wrong input data format";
+    }
+
+    initData();
     for (int row = 0; row < m_rows; ++row) {
-        m_data[row] = new double[m_cols];
+        for (int col = 0; col < m_cols; ++col) {
+            is >> m_data[row][col];
+            if (is.fail()) {
+                throw "Wrong input data format";
+            }
+        }
     }
 }
 
@@ -97,4 +111,11 @@ void SimpleMatrix::print(ostream& os) const {
 
 bool SimpleMatrix::indexOutOfBounds(int row, int col) const {
     return (row < 0 || col < 0 || row >= m_rows || col >= m_cols);
+}
+
+void SimpleMatrix::initData() {
+    m_data = new double*[m_rows];
+    for (int row = 0; row < m_rows; ++row) {
+        m_data[row] = new double[m_cols];
+    }
 }
