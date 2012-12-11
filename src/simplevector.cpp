@@ -112,7 +112,7 @@ Vector* SimpleVector::clone() const {
 
 void SimpleVector::print(ostream& os) const {
     for (int i = 0; i < m_size; i++) {
-        os << getElement(i) << " ";
+        os << getElement(i) << endl;
     }
 }
 

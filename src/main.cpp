@@ -3,53 +3,70 @@
 // Author      : Matej Kupciha
 //============================================================================
 
-#ifndef TEST
+//#ifndef TEST
 
 #include <iostream>
+#include <fstream>
 using namespace std;
 
 #include "simplevector.h"
 #include "simplematrix.h"
+#include "compressedmatrix.h"
 #include "algorithm.h"
 #include "gradientdescent.h"
 #include "conjugategradients.h"
 
 int main(int argc, char* argv[]) {
 
-    Vector* v = new SimpleVector(2);
-    Matrix* m = new SimpleMatrix(2, 2);
+    // Check arguments
+    if (argc < 3) {
+        cout << "Usage: " << argv[0] << " <vector-file> <matrix-file>" << endl;
+        return 1;
+    }
 
-    v->setElement(0, 2);
-    v->setElement(1, 1);
+    try {
+        // Input files and configuration
+        ifstream vectorFile(argv[1]);
+        ifstream matrixFile(argv[2]);
+        double epsilon = 0.000001;
 
-    m->setElement(0, 0, 2);
-    m->setElement(0, 1, -1);
-    m->setElement(1, 0, -1);
-    m->setElement(1, 1, 1);
+        // Read vector and matrix from file
+        Vector* v = new SimpleVector(vectorFile);
+        // Matrix* m = new SimpleMatrix(matrixFile);
+        Matrix* m = new CompressedMatrix(matrixFile);
 
-    Algorithm* descent = new GradientDescent();
-    Algorithm* gradients = new ConjugateGradients();
-    Vector* res = descent->solve(*m, *v, 0.000001);
-    Vector* res2 = gradients->solve(*m, *v, 0.000001);
+        // Solve equations
+        Algorithm* descent = new GradientDescent();
+        Algorithm* gradients = new ConjugateGradients();
+        // Save results
+        Vector* descentResult = descent->solve(*m, *v, epsilon);
+        Vector* gradientsResult = gradients->solve(*m, *v, epsilon);
 
-    v->print(cout);
-    cout << endl;
-    m->print(cout);
-    cout << endl << "Gradient descent: ";
-    res->print(cout);
-    cout << endl << "Conjugate gradients: ";
-    res2->print(cout);
-    cout << endl;
+        // Print results
+        cout << "Matrix (" << m->rowSize() << "x" << m->columnSize() << ")" << endl;
+        // m->print(cout);
+        cout << "Vector (" << v->size() << ")" << endl;
+        // v->print(cout);
+        cout << endl << "Gradient descent   : ";
+        descentResult->print(cout);
+        cout << endl << "Conjugate gradients: ";
+        gradientsResult->print(cout);
+        cout << endl;
 
-    // free memory
-    delete v;
-    delete m;
-    delete descent;
-    delete gradients;
-    delete res;
-    delete res2;
+        // Free resources
+        vectorFile.close();
+        matrixFile.close();
+        delete v;
+        delete m;
+        delete descent;
+        delete gradients;
+        delete descentResult;
+        delete gradientsResult;
+    } catch (const char* e) {
+        cout << "Exception thrown: " << e << endl;
+    }
 
     return 0;
 }
 
-#endif /* TEST */
+//#endif /* TEST */
