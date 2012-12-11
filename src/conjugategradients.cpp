@@ -21,7 +21,8 @@ Vector* ConjugateGradients::solve(const Matrix& A, const Vector& b, double epsil
     Vector* s = r->clone();
 
     double alfa, beta;
-    while (Utils::vectorSize(*r) > epsilon) {
+    double bSize = Utils::vectorSize(b);
+    while ((Utils::vectorSize(*r) / bSize) > epsilon) {
         // As = A * s
         Vector* As = A.multiplyRight(*s);
         Vector* sOld = s->clone();

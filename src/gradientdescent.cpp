@@ -19,7 +19,8 @@ Vector* GradientDescent::solve(const Matrix& A, const Vector& b, double epsilon)
     r->plus(b);
 
     double alfa;
-    while (Utils::vectorSize(*r) > epsilon) {
+    double bSize = Utils::vectorSize(b);
+    while ((Utils::vectorSize(*r) / bSize) > epsilon) {
         // Ar = A * r
         Vector* Ar = A.multiplyRight(*r);
         Vector* rOld = r->clone();
