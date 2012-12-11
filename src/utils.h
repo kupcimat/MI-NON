@@ -13,6 +13,7 @@
 class Utils {
 
 public:
+    static Vector* zeroVector(int size);
     static Vector* randomVector(int size);
     static double vectorSize(const Vector& vector);
 };

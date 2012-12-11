@@ -11,6 +11,16 @@
 #include <ctime>
 #include <cmath>
 
+Vector* Utils::zeroVector(int size) {
+    Vector* result = new SimpleVector(size);
+
+    for (int i = 0; i < size; ++i) {
+        result->setElement(i, 0);
+    }
+
+    return result;
+}
+
 Vector* Utils::randomVector(int size) {
     Vector* result = new SimpleVector(size);
 
