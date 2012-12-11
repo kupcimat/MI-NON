@@ -3,10 +3,12 @@
 // Author      : Matej Kupciha
 //============================================================================
 
-//#ifndef TEST
+#ifndef TEST
 
 #include <iostream>
 #include <fstream>
+#include <string>
+#include <ctime>
 using namespace std;
 
 #include "simplevector.h"
@@ -19,21 +21,26 @@ using namespace std;
 int main(int argc, char* argv[]) {
 
     // Check arguments
-    if (argc < 3) {
-        cout << "Usage: " << argv[0] << " <vector-file> <matrix-file>" << endl;
+    if (argc < 4) {
+        cout << "Usage: " << argv[0] << " <-s|-cr> <vector-file> <matrix-file>" << endl;
         return 1;
     }
 
     try {
         // Input files and configuration
-        ifstream vectorFile(argv[1]);
-        ifstream matrixFile(argv[2]);
+        string matrixType(argv[1]);
+        ifstream vectorFile(argv[2]);
+        ifstream matrixFile(argv[3]);
         double epsilon = 0.000001;
 
         // Read vector and matrix from file
         Vector* v = new SimpleVector(vectorFile);
-        // Matrix* m = new SimpleMatrix(matrixFile);
-        Matrix* m = new CompressedMatrix(matrixFile);
+        Matrix* m;
+        if (matrixType == "-s") {
+            m = new SimpleMatrix(matrixFile);
+        } else {
+            m = new CompressedMatrix(matrixFile);
+        }
 
         // Solve equations
         Algorithm* descent = new GradientDescent();
@@ -47,9 +54,9 @@ int main(int argc, char* argv[]) {
         // m->print(cout);
         cout << "Vector (" << v->size() << ")" << endl;
         // v->print(cout);
-        cout << endl << "Gradient descent   : ";
+        cout << endl << "Gradient descent:" << endl;
         descentResult->print(cout);
-        cout << endl << "Conjugate gradients: ";
+        cout << endl << "Conjugate gradients:" << endl;
         gradientsResult->print(cout);
         cout << endl;
 
@@ -69,4 +76,4 @@ int main(int argc, char* argv[]) {
     return 0;
 }
 
-//#endif /* TEST */
+#endif /* TEST */
