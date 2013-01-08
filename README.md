@@ -1,13 +1,15 @@
 MI-NON
 ======
 
-Usage (print result):
+Usage (print result)
+--------------------
 
-app <-gd|-cg> <-s|-cr> <matrix-file> <vector-file>
+    app <-gd|-cg> <-s|-cr> <matrix-file> <vector-file>
 
-Usage (discard result):
+Usage (discard result)
+----------------------
 
-app <-gd|-cg> <-s|-cr> <matrix-file> <vector-file> 2> /dev/null
+    app <-gd|-cg> <-s|-cr> <matrix-file> <vector-file> 2> /dev/null
 
 -gd (Gradient descent)
 -cg (Conjugate gradients)
