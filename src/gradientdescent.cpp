@@ -12,12 +12,13 @@ GradientDescent::~GradientDescent() {
 }
 
 Vector* GradientDescent::solve(const Matrix& A, const Vector& b, double epsilon) {
-    Vector* x = Utils::randomVector(b.size());
+    Vector* x = Utils::zeroVector(b.size());
     // r = b - A * x
     Vector* r = A.multiplyRight(*x);
     r->multiply(-1);
     r->plus(b);
 
+    int counter = 0;
     double alfa;
     double bSize = Utils::vectorSize(b);
     while ((Utils::vectorSize(*r) / bSize) > epsilon) {
@@ -36,8 +37,10 @@ Vector* GradientDescent::solve(const Matrix& A, const Vector& b, double epsilon)
 
         delete Ar;
         delete rOld;
+        counter++;
     }
     delete r;
+    std::cout << "Gradient descent iterations: " << counter << std::endl;
 
     return x;
 }

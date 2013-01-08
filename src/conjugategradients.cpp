@@ -12,7 +12,7 @@ ConjugateGradients::~ConjugateGradients() {
 }
 
 Vector* ConjugateGradients::solve(const Matrix& A, const Vector& b, double epsilon) {
-    Vector* x = Utils::randomVector(b.size());
+    Vector* x = Utils::zeroVector(b.size());
     // r = b - A * x
     Vector* r = A.multiplyRight(*x);
     r->multiply(-1);
@@ -20,6 +20,7 @@ Vector* ConjugateGradients::solve(const Matrix& A, const Vector& b, double epsil
     // s = r
     Vector* s = r->clone();
 
+    int counter = 0;
     double alfa, beta;
     double bSize = Utils::vectorSize(b);
     while ((Utils::vectorSize(*r) / bSize) > epsilon) {
@@ -45,9 +46,11 @@ Vector* ConjugateGradients::solve(const Matrix& A, const Vector& b, double epsil
 
         delete As;
         delete sOld;
+        counter++;
     }
     delete r;
     delete s;
+    std::cout << "Conjugate gradients iterations: " << counter << std::endl;
 
     return x;
 }
