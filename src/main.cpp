@@ -3,7 +3,7 @@
 // Author      : Matej Kupciha
 //============================================================================
 
-#ifndef TEST
+//#ifndef TEST
 
 #include <iostream>
 #include <fstream>
@@ -18,57 +18,69 @@ using namespace std;
 #include "gradientdescent.h"
 #include "conjugategradients.h"
 
+Vector* solve(Algorithm* algorithm, Matrix* m, Vector* v, double epsilon) {
+    time_t start = time(NULL);
+    Vector* result = algorithm->solve(*m, *v, epsilon);
+    time_t duration = time(NULL) - start;
+
+    // Print time results
+    cout << duration << "s" << endl;
+
+    return result;
+}
+
 int main(int argc, char* argv[]) {
 
     // Check arguments
-    if (argc < 4) {
-        cout << "Usage: " << argv[0] << " <-s|-cr> <vector-file> <matrix-file>" << endl;
+    if (argc < 5) {
+        cout << "Usage: " << argv[0] << " <-gd|-cg> <-s|-cr> <matrix-file> <vector-file>" << endl;
         return 1;
     }
 
     try {
         // Input files and configuration
-        string matrixType(argv[1]);
-        ifstream vectorFile(argv[2]);
+        string algorithmType(argv[1]);
+        string matrixType(argv[2]);
         ifstream matrixFile(argv[3]);
-        double epsilon = 0.000001;
+        ifstream vectorFile(argv[4]);
+        double epsilon = 1e-8;
 
-        // Read vector and matrix from file
-        Vector* v = new SimpleVector(vectorFile);
-        Matrix* m;
+        // Read vector and matrix from files
+        Vector* vector = new SimpleVector(vectorFile);
+        Matrix* matrix;
         if (matrixType == "-s") {
-            m = new SimpleMatrix(matrixFile);
+            matrix = new SimpleMatrix(matrixFile);
         } else {
-            m = new CompressedMatrix(matrixFile);
+            matrix = new CompressedMatrix(matrixFile);
         }
 
-        // Solve equations
-        Algorithm* descent = new GradientDescent();
-        Algorithm* gradients = new ConjugateGradients();
-        // Save results
-        Vector* descentResult = descent->solve(*m, *v, epsilon);
-        Vector* gradientsResult = gradients->solve(*m, *v, epsilon);
+        // Choose algorithm
+        Algorithm* algorithm;
+        string algorithmName;
+        if (algorithmType == "-gd") {
+            algorithm = new GradientDescent();
+            algorithmName = "Gradient descent";
+        } else {
+            algorithm = new ConjugateGradients();
+            algorithmName = "Conjugate gradients";
+        }
 
         // Print results
-        cout << "Matrix (" << m->rowSize() << "x" << m->columnSize() << ")" << endl;
-        // m->print(cout);
-        cout << "Vector (" << v->size() << ")" << endl;
-        // v->print(cout);
-        cout << endl << "Gradient descent:" << endl;
-        descentResult->print(cout);
-        cout << endl << "Conjugate gradients:" << endl;
-        gradientsResult->print(cout);
-        cout << endl;
+        cout << algorithmName << ":" << endl;
+        cout << "Matrix (" << matrix->rowSize() << "x" << matrix->columnSize() << ")" << endl;
+        cout << "Vector (" << vector->size() << ")" << endl;
+
+        // Solve equations
+        Vector* result = solve(algorithm, matrix, vector, epsilon);
+        result->print(cerr);
 
         // Free resources
         vectorFile.close();
         matrixFile.close();
-        delete v;
-        delete m;
-        delete descent;
-        delete gradients;
-        delete descentResult;
-        delete gradientsResult;
+        delete vector;
+        delete matrix;
+        delete algorithm;
+        delete result;
     } catch (const char* e) {
         cout << "Exception thrown: " << e << endl;
     }
@@ -76,4 +88,4 @@ int main(int argc, char* argv[]) {
     return 0;
 }
 
-#endif /* TEST */
+//#endif /* TEST */

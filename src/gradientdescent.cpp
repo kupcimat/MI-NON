@@ -40,7 +40,7 @@ Vector* GradientDescent::solve(const Matrix& A, const Vector& b, double epsilon)
         counter++;
     }
     delete r;
-    std::cout << "Gradient descent iterations: " << counter << std::endl;
+    std::cout << "iterations: " << counter << std::endl;
 
     return x;
 }

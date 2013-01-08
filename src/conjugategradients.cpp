@@ -50,7 +50,7 @@ Vector* ConjugateGradients::solve(const Matrix& A, const Vector& b, double epsil
     }
     delete r;
     delete s;
-    std::cout << "Conjugate gradients iterations: " << counter << std::endl;
+    std::cout << "iterations: " << counter << std::endl;
 
     return x;
 }
